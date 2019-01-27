@@ -264,13 +264,13 @@ class Client
      */
     protected function getApiKey()
     {
-        $apiKey = \Config::get('steam-api.steamApiKey');
+        $apiKey = config('steam-api.steamApiKey');
 
         if ($apiKey == 'YOUR-API-KEY') {
             throw new Exceptions\InvalidApiKeyException();
         }
         if (is_null($apiKey) || $apiKey == '' || $apiKey == []) {
-            $apiKey = getenv('apiKey');
+            $apiKey = env('STEAM_API_KEY');
         }
 
         return $apiKey;

@@ -15,39 +15,14 @@ class SteamApiServiceProvider extends ServiceProvider
     protected $defer = false;
 
     /**
-     * Bootstrap the application events.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        $this->publishes([__DIR__ . '/../../config/config.php' => config_path('steam-api.php')]);
-    }
-
-    /**
      * Register the service provider.
      *
      * @return void
      */
     public function register()
     {
-        $this->registerAlias();
-
         $this->app->singleton('steam-api', function () {
             return new Client;
-        });
-    }
-
-    /**
-     * Register the alias for package.
-     *
-     * @return void
-     */
-    protected function registerAlias()
-    {
-        $this->app->booting(function () {
-            $loader = AliasLoader::getInstance();
-            $loader->alias('Steam', 'Syntax\SteamApi\Facades\SteamApi');
         });
     }
 
