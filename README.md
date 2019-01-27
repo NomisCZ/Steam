@@ -1,18 +1,4 @@
-# Steam
-
-[![Join the chat at https://gitter.im/syntaxerrors/Steam](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/syntaxerrors/Steam?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-[![Build Status](https://travis-ci.org/syntaxerrors/Steam.svg)](https://travis-ci.org/syntaxerrors/Steam)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/syntaxerrors/Steam/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/syntaxerrors/Steam/?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/syntax/steam-api/v/stable.svg)](https://packagist.org/packages/syntax/steam-api)
-[![Total Downloads](https://poser.pugx.org/syntax/steam-api/downloads.svg)](https://packagist.org/packages/syntax/steam-api)
-[![License](https://poser.pugx.org/syntax/steam-api/license.svg)](https://packagist.org/packages/syntax/steam-api)
-
-**For Laravel 4, checkout the documentation on the [Laravel 4 branch](https://github.com/syntaxerrors/Steam/tree/Laravel4).**
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributors](#contributors)
+# Steam API for Lumen framework
 
 This package provides an easy way to get details from the Steam API service.  The services it can access are:
 
@@ -26,27 +12,27 @@ This package provides an easy way to get details from the Steam API service.  Th
 
 Begin by installing this package with composer.
 
+	"repositories": [{
+		"type": "vcs",
+		"url": "https://github.com/NomisCZ/Steam.git"
+	}],
 	"require": {
-		"syntax/steam-api": "2.0.*"
+		"syntax/steam-api": "master"
 	}
 	
 Next, update composer from the terminal.
 
-	composer update syntax/steam-api
+	composer update
 
-> Alternately, you can run "composer require syntax/steam-api:dev-master" from the command line.
+Once that is finished, add the service provider to `bootstrap/app.php`
 
-> **Note**: If you are using Laravel 5.5, the next steps are unnecessary. This package supports Laravel [Package Discovery](https://laravel.com/docs/5.5/packages#package-discovery).
+	$app->register(Syntax\SteamApi\SteamApiServiceProvider::class);
+	class_alias('Syntax\SteamApi\Facades\SteamApi', 'Steam'); // Only if you want to use alias "Steam" -> use Steam;
 
-Once that is finished, add the service provider to `config/app.php`
+Lastly, publish the config file and add configure to `bootstrap/app.php`. You can get your API key from [Steam](http://steamcommunity.com/dev/apikey).
 
-	'Syntax\SteamApi\SteamApiServiceProvider',
-
-> The alias to Steam is already handled by the package.
-
-Lastly, publish the config file.  You can get your API key from [Steam](http://steamcommunity.com/dev/apikey).
-
-	php artisan vendor:publish
+	Copy /src/config/config.php to /app/config/steam-api.php
+	$app->configure('steam-api'); // Or add STEAM_API_KEY="YOUR-API-KEY" to .env file
 
 ## Usage
 
